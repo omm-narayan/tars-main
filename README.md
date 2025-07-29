@@ -10,7 +10,7 @@ TARS is powered by a modular software stack designed for real-time speech, visio
 * **USB Microphone**
 * **Speaker**
 
-If you don’t already have Raspberry Pi OS installed, follow the Raspberry Pi Imager guide.
+If you don’t already have Raspberry Pi OS installed, follow the Raspberry Pi Imager guide: https://youtu.be/DRJAILbqjy0?si=tuGTmIKr4FZVbT1F
 
 ---
 
