@@ -1,4 +1,8 @@
 """
+app.py
+
+Main entry point for the TARS-AI application.
+
 Initializes modules, loads configuration, and manages key threads for functionality such as:
 - Speech-to-text (STT)
 - Text-to-speech (TTS)
@@ -13,7 +17,6 @@ import os
 import sys
 import threading
 from datetime import datetime
-import time
 
 # === Custom Modules ===
 from modules.module_config import load_config
