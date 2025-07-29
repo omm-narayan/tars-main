@@ -1,6 +1,6 @@
-# TARS-AI Software Setup
+# TARS Software Setup
 
-TARS-AI is powered by a modular software stack designed for real-time speech, vision, and motor control. Follow these instructions to install and set up the TARS-AI environment on your Raspberry Pi.
+TARS is powered by a modular software stack designed for real-time speech, vision, and motor control. Follow these instructions to install and set up the TARS environment on your Raspberry Pi.
 
 ---
 
@@ -80,12 +80,12 @@ sudo reboot
 
 ---
 
-## Clone the TARS-AI Repository
+## Clone the TARS Repository
 
 ```sh
 sudo apt install python3-venv -y
 git clone https://github.com/omm-narayan/tars-main
-cd TARS-AI
+cd tars-main
 ```
 
 ---
