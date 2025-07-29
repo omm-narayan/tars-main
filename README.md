@@ -84,7 +84,7 @@ sudo reboot
 
 ```sh
 sudo apt install python3-venv -y
-git clone https://github.com/TARS-AI-Community/TARS-AI
+git clone https://github.com/omm-narayan/tars-main
 cd TARS-AI
 ```
 
