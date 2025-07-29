@@ -1,39 +1,220 @@
-# TARS-AI
+# TARS-AI Software Setup
 
-<p align="center">
-    <a href="https://discord.gg/AmE2Gv9EUt">
-      <img alt="Discord Invitation Link" src="https://dcbadge.vercel.app/api/server/uXkqkz3mJJ?style=flat" align="center" />
-    </a>
-    <a href="https://www.youtube.com/@TARS-AI.py.youtube">
-        <img src="https://img.shields.io/badge/YouTube-red?style=flat-square&logo=youtube&logoColor=white" alt="YouTube" align="center" />
-    </a>
-    <a href="https://www.instagram.com/tars_ai.py">
-        <img src="https://img.shields.io/badge/Instagram-purple?style=flat-square&logo=instagram&logoColor=white" alt="Instagram" align="center" />
-    </a>
-    <a href="https://www.tiktok.com/@tars.ai.py">
-        <img src="https://img.shields.io/badge/TikTok-black?style=flat-square&logo=tiktok&logoColor=white" alt="TikTok" align="center" />   
-    </a>
-    <a href="https://docs-tars-ai.vercel.app">
-        <img src="https://img.shields.io/badge/Docs-grey?style=flat-square&logo=readthedocs&logoColor=white" alt="Documentation" align="center" />
-    </a>
+TARS-AI is powered by a modular software stack designed for real-time speech, vision, and motor control. Follow these instructions to install and set up the TARS-AI environment on your Raspberry Pi.
 
-</p>
+---
 
-<p align="center"><a href="https://github.com/pyrater/TARS-AI"><img width=90% alt="" src="/media/tars-banner-logo.png" /></a></p>
+## Minimum Hardware Prerequisites
 
-<p align="center">A recreation of the robot TARS from Interstellar, featuring AI capabilities.</p>
+* **Raspberry Pi**
+* **USB Microphone**
+* **Speaker**
 
-## To start building TARS-AI
-- See our documentation for more information: [docs-tars-ai.vercel.app](https://docs-tars-ai.vercel.app)
+If you don’t already have Raspberry Pi OS installed, follow the Raspberry Pi Imager guide.
 
-## To start contributing to TARS-AI
-- See our contributing guidelines: [docs-tars-ai.vercel.app/contribute/contribution_guidelines](https://docs-tars-ai.vercel.app/contribute/guidelines)
-- Join our Discord server: [Discord Invite](https://discord.gg/AmE2Gv9EUt)
+---
 
-## License
+## Environment Setup and Installation
 
-TARS-AI is licensed under the [CC-BY-NC License](./LICENSE). See the [License Page](https://github.com/pyrater/TARS-AI/blob/main/LICENSE) for more details.
+### Configure Raspberry Pi
 
-## Attribution 
+```sh
+sudo raspi-config
+```
 
-As we continue to build and expand upon the TARS project, please review the guidelines for attribution and best practices when sharing or publishing work related to the TARS project [Attribution Page](https://docs-tars-ai.vercel.app/about#attribution)
+Use the `Update` option to update the configuration tool (as shown in the provided image).
+
+* Enable VNC, SPI, and I2C under **Interface Options**
+* Go to **Advanced Options > Audio Config > Pipewire**
+
+```sh
+sudo reboot
+```
+
+### Install and Configure LCD-show
+
+```sh
+git clone https://github.com/goodtft/LCD-show.git
+cd LCD-show
+chmod +x LCD35-show
+sudo ./LCD35-show
+```
+
+Update `/boot/config.txt` with:
+
+```ini
+hdmi_force_hotplug=1
+hdmi_group=2
+hdmi_mode=82
+framebuffer_width=1920
+framebuffer_height=1080
+dtoverlay=tft35a:rotate=270
+```
+
+Reboot:
+
+```sh
+sudo reboot
+```
+
+---
+
+## Touchscreen Calibration
+
+```sh
+sudo apt-get install xinput-calibrator
+xinput_calibrator
+```
+
+Follow the tool and save config:
+
+```sh
+sudo nano /usr/share/X11/xorg.conf.d/99-calibration.conf
+```
+
+Reboot:
+
+```sh
+sudo reboot
+```
+
+---
+
+## Clone the TARS-AI Repository
+
+```sh
+sudo apt install python3-venv -y
+git clone https://github.com/TARS-AI-Community/TARS-AI
+cd TARS-AI
+```
+
+---
+
+## Install System Dependencies
+
+```sh
+sudo apt update
+sudo apt upgrade -y
+chmod 777 Install.sh
+chmod a+x Install.sh
+sudo ./Install.sh
+```
+
+Fix permissions:
+
+```sh
+sudo chown $(id -u):$(id -g) .env
+sudo chown $(id -u):$(id -g) src/config.ini
+```
+
+---
+
+## Connect Hardware
+
+* **USB Microphone**
+* **External Speaker** (audio jack/Bluetooth)
+
+---
+
+## Install Audio AMP
+
+Edit `/boot/config.txt`:
+
+```ini
+dtparam=audio=on
+dtoverlay=hifiberry-dac
+dtoverlay=i2s-mmap
+```
+
+```sh
+source src/.venv/bin/activate
+sudo apt install -y wget
+pip3 install adafruit-python-shell
+wget https://github.com/adafruit/Raspberry-Pi-Installer-Scripts/raw/main/i2samp.py
+sudo -E env PATH=$PATH python3 i2samp.py
+```
+
+```sh
+sudo reboot
+```
+
+After reboot:
+
+```sh
+source src/.venv/bin/activate
+sudo -E env PATH=$PATH python3 i2samp.py
+```
+
+Adjust volume:
+
+```sh
+alsamixer
+```
+
+---
+
+## Configure API Keys
+
+Edit `.env`:
+
+```env
+OPENAI_API_KEY="your-key"
+OOBA_API_KEY="your-key"
+TABBY_API_KEY="your-key"
+AZURE_API_KEY="your-key"
+```
+
+---
+
+## Set Configuration Parameters
+
+Edit `src/config.ini`:
+
+```ini
+[LLM]
+llm_backend = openai
+base_url = https://api.openai.com
+openai_model = gpt-4o-mini
+
+[TTS]
+ttsoption = azure
+azure_region = eastus
+tts_voice = en-US-Steffan:DragonHDLatestNeural
+```
+
+---
+
+## Run the Program
+
+```sh
+cd src/
+python app.py
+```
+
+---
+
+## Optional: Home Assistant Integration
+
+Edit `src/config.ini`:
+
+```ini
+[HOME_ASSISTANT]
+enabled = True
+url = http://homeassistant.local:8123
+```
+
+Edit `.env`:
+
+```env
+HA_TOKEN="your-token"
+```
+
+Restart:
+
+```sh
+cd src/
+python app.py
+```
+
+---
+
