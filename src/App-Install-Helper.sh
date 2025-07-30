@@ -21,5 +21,3 @@ pip install git+https://github.com/openai/whisper.git
 pip install -r requirements.txt
 #edit src/config.ini.example and save as config.ini
 #edit ../.env.example and put in keys, and x if none, and save as .env
-
-
