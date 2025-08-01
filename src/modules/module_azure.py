@@ -4,7 +4,6 @@ import asyncio
 import azure.cognitiveservices.speech as speechsdk
 from modules.module_config import load_config
 
-
 CONFIG = load_config()
 
 def init_speech_config() -> speechsdk.SpeechConfig:
