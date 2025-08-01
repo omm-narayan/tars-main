@@ -12,7 +12,6 @@ CONFIG = load_config()
 # ✅ Initialize ElevenLabs client globally
 elevenlabs_client = ElevenLabs(api_key=CONFIG['TTS']['elevenlabs_api_key'])
 
-
 async def synthesize_elevenlabs(chunk):
     """
     Synthesize a chunk of text into an AudioSegment using ElevenLabs API.
