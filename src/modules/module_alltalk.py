@@ -90,3 +90,4 @@ async def text_to_speech_with_pipelining_alltalk(text):
         wav_buffer = await synthesize_alltalk(chunk)  # Send to API
         if wav_buffer:
             yield wav_buffer  # Yield processed audio chunk
+
