@@ -189,7 +189,8 @@ def movement_llmcall(user_input):
         "movement": "unposeaction",
         "times": 1
     }}
-
+ 
+    
     Instructions:
     - Use only the specified movements (stepForward, turnRight, turnLeft, poseaction, unposeaction).
     - Ensure the JSON output is properly formatted and follows the example structure exactly.
