@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""
-Face Animator with Flask Streaming (No Kivy) – Breathing, Blinking, Talking, and Sway Control
+"""Face Animator with Flask Streaming (No Kivy) – Breathing, Blinking, Talking, and Sway Control
 
 This script uses Pillow to simulate face animation with:
   - Blinking at random intervals.
