@@ -31,6 +31,7 @@ def start_discord_bot(callback):
     Parameters:
     - callback (function): A function that processes user messages and returns a response.
     """
+    
     global process_discord_message_callback
     process_discord_message_callback = callback
 
