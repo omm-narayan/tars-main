@@ -78,4 +78,5 @@ async def text_to_speech_with_pipelining_espeak(text):
         except Exception as e:
             queue_message(f"ERROR: Local TTS generation failed: {e}")
             continue
+
         
