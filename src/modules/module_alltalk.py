@@ -27,7 +27,6 @@ async def generate_chunks(text):
         if chunk:
             yield chunk  # ✅ Now an async generator
 
-
 async def synthesize_alltalk(chunk):
     """
     Sends a text chunk to the AllTalk API and returns a BytesIO buffer with the audio.
