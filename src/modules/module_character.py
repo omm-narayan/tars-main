@@ -1,6 +1,5 @@
 """
 module_character.py
-
 Character Management Module for TARS-AI Application.
 
 This module manages character attributes and dynamic properties for the TARS-AI application.
